@@ -18,9 +18,18 @@ var (
 	Agent *models.Agent
 )
 
+//auto call when runtime
 func init() {
+	var serveraddr, port string
+	if len(os.Args) == 3{
+		serveraddr = os.Args[1]
+		port = os.Args[2]
+	}else{
+		serveraddr = "127.0.0.1"
+		port = "8080"
+	}
 	debug := true
-	agent, err := models.NewAgent(debug, "http2")
+	agent, err := models.NewAgent(debug, "http2", serveraddr, port)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(0)

@@ -48,7 +48,7 @@ type AgentInfo struct {
 	Initial      bool      `json:"initial"`
 }
 
-func NewAgent(debug bool, protocol string) (*Agent, error) {
+func NewAgent(debug bool, protocol, server, port string) (*Agent, error) {
 	uuidV4 := uuid.NewV1()
 
 	agent := &Agent{
@@ -68,11 +68,11 @@ func NewAgent(debug bool, protocol string) (*Agent, error) {
 
 	switch protocol {
 	case "h2c":
-		agent.URL = fmt.Sprintf("%v://127.0.0.1:8080", "https")
+		agent.URL = fmt.Sprintf("%v://%v:%v", "https",server,port)
 	case "http2":
-		agent.URL = fmt.Sprintf("%v://127.0.0.1:8080", "https")
+		agent.URL = fmt.Sprintf("%v://%v:%v", "https",server,port)
 	case "http":
-		agent.URL = fmt.Sprintf("%v://127.0.0.1:8080", "http")
+		agent.URL = fmt.Sprintf("%v://%v:%v", "http",server,port)
 	}
 
 	u, err := user.Current()
